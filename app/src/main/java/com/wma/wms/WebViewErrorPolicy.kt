@@ -1,4 +1,4 @@
-package com.example.wmai
+package com.wma.wms
 
 /**
  * Decides whether a WebView load failure should surface the full-screen error/retry view.

@@ -3,13 +3,13 @@ plugins {
 }
 
 android {
-    namespace = "com.example.wmai"
+    namespace = "com.wma.wms"
     compileSdk {
         version = release(37)
     }
 
     defaultConfig {
-        applicationId = "com.example.wmai"
+        applicationId = "com.wma.wms"
         minSdk = 26
         targetSdk = 37
         versionCode = 1

@@ -1,4 +1,4 @@
-package com.example.wmai
+package com.wma.wms
 
 import org.junit.Test
 

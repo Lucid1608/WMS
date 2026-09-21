@@ -1,4 +1,4 @@
-package com.example.wmai
+package com.wma.wms
 
 /** Central place for the NetSuite mobile emulator's entry point. */
 object AppConfig {

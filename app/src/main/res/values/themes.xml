@@ -11,6 +11,8 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+        <!-- The root layout already paints its own background for the edge-to-edge inset
+             padding; avoid double-painting the window behind it. -->
+        <item name="android:windowBackground">@null</item>
     </style>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.wmai
+package com.wma.wms
 
 /**
  * Decides what the Android back button should do based on whether the WebView

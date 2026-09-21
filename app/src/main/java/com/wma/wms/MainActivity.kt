@@ -1,4 +1,4 @@
-package com.example.wmai
+package com.wma.wms
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.wmai.databinding.ActivityMainBinding
+import com.wma.wms.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

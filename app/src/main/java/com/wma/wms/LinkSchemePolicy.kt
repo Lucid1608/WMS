@@ -1,4 +1,4 @@
-package com.example.wmai
+package com.wma.wms
 
 /**
  * Decides whether a link's URI scheme is one the WebView can navigate itself (`http`/`https`)
