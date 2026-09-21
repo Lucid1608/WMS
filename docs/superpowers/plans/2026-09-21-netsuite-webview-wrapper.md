@@ -123,7 +123,7 @@ Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew help`
 Expected: `BUILD SUCCESSFUL`. Confirmed — `BUILD SUCCESSFUL in 6s` after removing the
 unnecessary Kotlin plugin alias (see correction note above).
 
-- [ ] **Step 4: Commit**
+- [x] **Step 4: Commit**
 
 ```bash
 git add gradle/libs.versions.toml app/build.gradle.kts
@@ -141,7 +141,7 @@ otherwise fall through to exiting the activity.
 - Create: `app/src/main/java/com/example/wmai/BackNavigationPolicy.kt`
 - Test: `app/src/test/java/com/example/wmai/BackNavigationPolicyTest.kt`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `app/src/test/java/com/example/wmai/BackNavigationPolicyTest.kt`:
 
@@ -167,12 +167,12 @@ class BackNavigationPolicyTest {
 }
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew testDebugUnitTest --tests "com.example.wmai.BackNavigationPolicyTest"`
 Expected: FAIL (compilation error — `BackNavigationPolicy` does not exist yet).
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `app/src/main/java/com/example/wmai/BackNavigationPolicy.kt`:
 
@@ -192,12 +192,12 @@ object BackNavigationPolicy {
 }
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew testDebugUnitTest --tests "com.example.wmai.BackNavigationPolicyTest"`
 Expected: `BUILD SUCCESSFUL`, 2 tests passed.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/src/main/java/com/example/wmai/BackNavigationPolicy.kt app/src/test/java/com/example/wmai/BackNavigationPolicyTest.kt
@@ -216,7 +216,7 @@ broken subresource doesn't hide a page that otherwise loaded fine.
 - Create: `app/src/main/java/com/example/wmai/WebViewErrorPolicy.kt`
 - Test: `app/src/test/java/com/example/wmai/WebViewErrorPolicyTest.kt`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `app/src/test/java/com/example/wmai/WebViewErrorPolicyTest.kt`:
 
@@ -241,12 +241,12 @@ class WebViewErrorPolicyTest {
 }
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew testDebugUnitTest --tests "com.example.wmai.WebViewErrorPolicyTest"`
 Expected: FAIL (compilation error — `WebViewErrorPolicy` does not exist yet).
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `app/src/main/java/com/example/wmai/WebViewErrorPolicy.kt`:
 
@@ -264,12 +264,12 @@ object WebViewErrorPolicy {
 }
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew testDebugUnitTest --tests "com.example.wmai.WebViewErrorPolicyTest"`
 Expected: `BUILD SUCCESSFUL`, 2 tests passed.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/src/main/java/com/example/wmai/WebViewErrorPolicy.kt app/src/test/java/com/example/wmai/WebViewErrorPolicyTest.kt
@@ -286,7 +286,7 @@ Holds the NetSuite Suitelet start URL, deliberately excluding the session-bound 
 - Create: `app/src/main/java/com/example/wmai/AppConfig.kt`
 - Test: `app/src/test/java/com/example/wmai/AppConfigTest.kt`
 
-- [ ] **Step 1: Write the failing test**
+- [x] **Step 1: Write the failing test**
 
 Create `app/src/test/java/com/example/wmai/AppConfigTest.kt`:
 
@@ -317,12 +317,12 @@ class AppConfigTest {
 }
 ```
 
-- [ ] **Step 2: Run the test to verify it fails**
+- [x] **Step 2: Run the test to verify it fails**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew testDebugUnitTest --tests "com.example.wmai.AppConfigTest"`
 Expected: FAIL (compilation error — `AppConfig` does not exist yet).
 
-- [ ] **Step 3: Write the implementation**
+- [x] **Step 3: Write the implementation**
 
 Create `app/src/main/java/com/example/wmai/AppConfig.kt`:
 
@@ -342,12 +342,12 @@ object AppConfig {
 }
 ```
 
-- [ ] **Step 4: Run the test to verify it passes**
+- [x] **Step 4: Run the test to verify it passes**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew testDebugUnitTest --tests "com.example.wmai.AppConfigTest"`
 Expected: `BUILD SUCCESSFUL`, 3 tests passed.
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add app/src/main/java/com/example/wmai/AppConfig.kt app/src/test/java/com/example/wmai/AppConfigTest.kt
@@ -362,7 +362,7 @@ git commit -m "Add AppConfig with start URL and unit tests"
 - Modify: `app/src/main/res/values/strings.xml`
 - Create: `app/src/main/res/layout/activity_main.xml`
 
-- [ ] **Step 1: Update strings.xml**
+- [x] **Step 1: Update strings.xml**
 
 Edit `app/src/main/res/values/strings.xml` to match exactly:
 
@@ -374,7 +374,7 @@ Edit `app/src/main/res/values/strings.xml` to match exactly:
 </resources>
 ```
 
-- [ ] **Step 2: Create the activity layout**
+- [x] **Step 2: Create the activity layout**
 
 Create `app/src/main/res/layout/activity_main.xml`:
 
@@ -435,7 +435,7 @@ Create `app/src/main/res/layout/activity_main.xml`:
 </FrameLayout>
 ```
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add app/src/main/res/values/strings.xml app/src/main/res/layout/activity_main.xml
@@ -449,7 +449,7 @@ git commit -m "Add activity_main layout and strings"
 **Files:**
 - Modify: `app/src/main/AndroidManifest.xml`
 
-- [ ] **Step 1: Update the manifest**
+- [x] **Step 1: Update the manifest**
 
 Edit `app/src/main/AndroidManifest.xml` to match exactly:
 
@@ -489,7 +489,7 @@ Edit `app/src/main/AndroidManifest.xml` to match exactly:
 </manifest>
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add app/src/main/AndroidManifest.xml
@@ -506,7 +506,7 @@ refresh, retry, back navigation, downloads, and camera permission requests from 
 **Files:**
 - Create: `app/src/main/java/com/example/wmai/MainActivity.kt`
 
-- [ ] **Step 1: Write the implementation**
+- [x] **Step 1: Write the implementation**
 
 Create `app/src/main/java/com/example/wmai/MainActivity.kt`:
 
@@ -673,7 +673,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 git add app/src/main/java/com/example/wmai/MainActivity.kt
@@ -686,23 +686,24 @@ git commit -m "Implement MainActivity WebView wrapper"
 
 **Files:** none (verification only)
 
-- [ ] **Step 1: Run all local unit tests**
+- [x] **Step 1: Run all local unit tests**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew testDebugUnitTest`
 Expected: `BUILD SUCCESSFUL`, all tests (including the pre-existing `ExampleUnitTest`) pass.
 
-- [ ] **Step 2: Build the debug APK**
+- [x] **Step 2: Build the debug APK**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew assembleDebug`
 Expected: `BUILD SUCCESSFUL`, producing `app/build/outputs/apk/debug/app-debug.apk`.
 
-- [ ] **Step 3: Fix any errors surfaced by Steps 1–2**
+- [x] **Step 3: Fix any errors surfaced by Steps 1–2**
 
 If either command fails, read the actual compiler/test output, fix the responsible file from
 an earlier task, and re-run until both commands succeed. Do not consider the plan complete
 until both are green.
 
-- [ ] **Step 4: Commit any fixes made in Step 3**
+- [x] **Step 4: Commit any fixes made in Step 3** — skipped; Steps 1–2 passed with no changes
+  needed (only the Task 1 correction, already committed in that task).
 
 ```bash
 git add -A
