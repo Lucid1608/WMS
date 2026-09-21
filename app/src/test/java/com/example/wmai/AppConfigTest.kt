@@ -1,14 +1,15 @@
 package com.example.wmai
 
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class AppConfigTest {
 
     @Test
-    fun `start url does not embed a session token`() {
-        assertFalse(AppConfig.START_URL.contains("ns-at"))
+    fun `start url embeds the mobile role access token`() {
+        // NetSuite's Suitelet fails hard ("Invalid page parameter") without ns-at present;
+        // it is a persistent access token for this mobile role, not a per-session cookie.
+        assertTrue(AppConfig.START_URL.contains("ns-at="))
     }
 
     @Test
