@@ -22,6 +22,8 @@ import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import com.example.wmai.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setUpEdgeToEdgeInsets()
         setUpWebView()
         setUpSwipeToRefresh()
         setUpRetryButton()
@@ -74,6 +77,20 @@ class MainActivity : AppCompatActivity() {
             destroy()
         }
         super.onDestroy()
+    }
+
+    private fun setUpEdgeToEdgeInsets() {
+        // targetSdk 37 forces edge-to-edge layout with no opt-out: content draws behind the
+        // status bar and navigation bar by default, and their color is no longer themeable.
+        // Pad the root view by the system bars (and the keyboard, when shown) so our content
+        // never sits underneath them.
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { view, windowInsets ->
+            val bars = windowInsets.getInsets(
+                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
+            )
+            view.setPadding(bars.left, bars.top, bars.right, bars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     private fun setUpWebView() {
