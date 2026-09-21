@@ -52,10 +52,13 @@ NetSuite Suitelet base URL. No navigation graph, no additional screens.
   page actually invokes `getUserMedia` (future-proofing; the Zebra hardware scanner does not
   need this).
 - App label: "WMA" (placeholder), default launcher icon (placeholder, swappable later).
-- Start URL: the Suitelet base URL without the session-specific `ns-at` token
-  (`https://5150631.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=896&deploy=1&compid=5150631`),
-  since the token in the URL the user supplied is session-bound and will expire. Landing on
-  the base URL lets NetSuite's own login page take over when there's no valid session.
+- Start URL: **originally designed** to be the Suitelet base URL without the `ns-at` token,
+  on the assumption it was a session-bound token that would expire and that NetSuite would
+  fall back to its own login page without it. **Corrected after on-device testing**: NetSuite
+  instead fails hard with "Invalid page parameter. Unable to view page." when `ns-at` is
+  missing. The user confirmed the full URL (`ns-at` included) is NetSuite's persistent
+  "Mobile Login Page URL" issued for this mobile role, not a short-lived per-session token —
+  so the app now loads that full URL as-is.
 
 ## Explicitly not included
 
