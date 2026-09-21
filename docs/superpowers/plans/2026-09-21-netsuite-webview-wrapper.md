@@ -24,18 +24,20 @@ JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew <task>
 
 ---
 
-### Task 1: Add Kotlin support and the SwipeRefreshLayout dependency
+### Task 1: Add the SwipeRefreshLayout dependency and bump minSdk
 
-The scaffold currently applies only the Android application plugin — no Kotlin plugin — even
-though `.kt` files exist under `src/test` and `src/androidTest`. Without the Kotlin Android
-plugin, no `.kt` file in `src/main` would be compiled. This task fixes that, bumps `minSdk` to
-26, and adds the `SwipeRefreshLayout` dependency and ViewBinding.
+**Correction found during execution:** AGP 9.4.1 (used by this scaffold) has *built-in* Kotlin
+support — `.kt` files compile without applying a separate `org.jetbrains.kotlin.android`
+plugin, and applying it explicitly now fails with "plugin is already on the classpath with an
+unknown version." Steps below reflect the corrected, verified configuration (no Kotlin plugin
+alias needed). This task bumps `minSdk` to 26 and adds the `SwipeRefreshLayout` dependency and
+ViewBinding.
 
 **Files:**
 - Modify: `gradle/libs.versions.toml`
 - Modify: `app/build.gradle.kts`
 
-- [ ] **Step 1: Add Kotlin and SwipeRefreshLayout entries to the version catalog**
+- [x] **Step 1: Add the SwipeRefreshLayout entry to the version catalog**
 
 Edit `gradle/libs.versions.toml` to match exactly:
 
@@ -48,7 +50,6 @@ junitVersion = "1.1.5"
 espressoCore = "3.5.1"
 appcompat = "1.6.1"
 material = "1.10.0"
-kotlin = "2.4.20"
 swiperefreshlayout = "1.2.0"
 
 [libraries]
@@ -62,17 +63,15 @@ androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "s
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ```
 
-- [ ] **Step 2: Apply the Kotlin plugin, bump minSdk, enable ViewBinding, add the dependency**
+- [x] **Step 2: Bump minSdk, enable ViewBinding, add the dependency**
 
 Edit `app/build.gradle.kts` to match exactly:
 
 ```kotlin
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -118,17 +117,17 @@ dependencies {
 }
 ```
 
-- [ ] **Step 3: Verify the project still configures correctly**
+- [x] **Step 3: Verify the project still configures correctly**
 
 Run: `JAVA_HOME="/c/Program Files/Android/Android Studio/jbr" ./gradlew help`
-Expected: `BUILD SUCCESSFUL`. If it fails, fix the reported error in the two files above before
-continuing — do not proceed to Task 2 with a broken configuration.
+Expected: `BUILD SUCCESSFUL`. Confirmed — `BUILD SUCCESSFUL in 6s` after removing the
+unnecessary Kotlin plugin alias (see correction note above).
 
 - [ ] **Step 4: Commit**
 
 ```bash
 git add gradle/libs.versions.toml app/build.gradle.kts
-git commit -m "Add Kotlin plugin, bump minSdk to 26, add SwipeRefreshLayout dependency"
+git commit -m "Bump minSdk to 26, add SwipeRefreshLayout dependency and ViewBinding"
 ```
 
 ---
