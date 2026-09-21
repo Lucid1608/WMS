@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">WMA</string>
+    <string name="error_message">Couldn\'t load this page. Check your connection and try again.</string>
+    <string name="retry">Retry</string>
+</resources>
