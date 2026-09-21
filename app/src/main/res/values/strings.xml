@@ -2,4 +2,6 @@
     <string name="app_name">WMA</string>
     <string name="error_message">Couldn\'t load this page. Check your connection and try again.</string>
     <string name="retry">Retry</string>
+    <string name="no_app_for_link">No app found to open this link.</string>
+    <string name="download_failed">Couldn\'t open this download.</string>
 </resources>

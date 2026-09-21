@@ -2,6 +2,7 @@ package com.example.wmai
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -14,9 +15,9 @@ import android.webkit.PermissionRequest
 import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
-import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -33,7 +34,11 @@ class MainActivity : AppCompatActivity() {
             val request = pendingCameraPermissionRequest
             pendingCameraPermissionRequest = null
             if (request == null) return@registerForActivityResult
-            if (granted) request.grant(request.resources) else request.deny()
+            if (granted) {
+                request.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
+            } else {
+                request.deny()
+            }
         }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -47,7 +52,28 @@ class MainActivity : AppCompatActivity() {
         setUpRetryButton()
         setUpBackNavigation()
 
-        binding.webView.loadUrl(AppConfig.START_URL)
+        if (savedInstanceState != null) {
+            binding.webView.restoreState(savedInstanceState)
+        } else {
+            binding.webView.loadUrl(AppConfig.START_URL)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        binding.webView.saveState(outState)
+    }
+
+    override fun onDestroy() {
+        binding.webView.apply {
+            stopLoading()
+            webViewClient = WebViewClient()
+            webChromeClient = null
+            // WebView must be detached from the view hierarchy before destroy() is called.
+            (parent as? android.view.ViewGroup)?.removeView(this)
+            destroy()
+        }
+        super.onDestroy()
     }
 
     private fun setUpWebView() {
@@ -65,26 +91,38 @@ class MainActivity : AppCompatActivity() {
                 binding.errorView.visibility = View.GONE
             }
 
+            override fun onPageFinished(view: WebView, url: String) {
+                super.onPageFinished(view, url)
+                // Force any session cookie NetSuite just set to disk now, rather than relying
+                // on CookieManager's periodic auto-flush, so a killed/force-closed app doesn't
+                // lose the session and force a fresh sign-in next launch.
+                CookieManager.getInstance().flush()
+            }
+
             override fun onReceivedError(
                 view: WebView,
                 request: WebResourceRequest,
                 error: WebResourceError
             ) {
                 super.onReceivedError(view, request, error)
-                if (WebViewErrorPolicy.shouldShowError(request.isForMainFrame)) {
+                if (WebViewErrorPolicy.shouldShowError(request.isForMainFrame, error.description?.toString())) {
                     showError()
                 }
             }
 
-            override fun onReceivedHttpError(
-                view: WebView,
-                request: WebResourceRequest,
-                errorResponse: WebResourceResponse
-            ) {
-                super.onReceivedHttpError(view, request, errorResponse)
-                if (WebViewErrorPolicy.shouldShowError(request.isForMainFrame)) {
-                    showError()
+            override fun shouldOverrideUrlLoading(view: WebView, request: WebResourceRequest): Boolean {
+                if (LinkSchemePolicy.isWebScheme(request.url.scheme)) {
+                    return false
                 }
+                // tel:, mailto:, geo:, market:, etc. — WebView can't navigate these itself.
+                // Hand off to the system; either way, don't let WebView also try and fail,
+                // which would otherwise trigger the error view.
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, request.url))
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(this@MainActivity, R.string.no_app_for_link, Toast.LENGTH_SHORT).show()
+                }
+                return true
             }
         }
 
@@ -110,7 +148,11 @@ class MainActivity : AppCompatActivity() {
 
         webView.setDownloadListener(
             DownloadListener { url, _, _, _, _ ->
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(this, R.string.download_failed, Toast.LENGTH_SHORT).show()
+                }
             }
         )
     }
@@ -119,7 +161,7 @@ class MainActivity : AppCompatActivity() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) ==
             PackageManager.PERMISSION_GRANTED
         ) {
-            request.grant(request.resources)
+            request.grant(arrayOf(PermissionRequest.RESOURCE_VIDEO_CAPTURE))
             return
         }
         pendingCameraPermissionRequest = request
